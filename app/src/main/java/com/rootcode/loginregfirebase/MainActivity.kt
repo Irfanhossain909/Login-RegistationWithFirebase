@@ -1,5 +1,6 @@
 package com.rootcode.loginregfirebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -23,15 +24,23 @@ class MainActivity : AppCompatActivity() {
                 Firebase.auth.createUserWithEmailAndPassword(binding.emailEtxt.text.toString(),binding.passEtxt.text.toString()).
                         addOnCompleteListener {
                             if (it.isSuccessful){
-                                binding.emailEtxt.text?.clear()
-                                binding.passEtxt.text?.clear()
+                                startActivity(Intent(this@MainActivity,HomeActivity::class.java))
+                                finish()
                                 Toast.makeText(this@MainActivity,"User Registation!!!...",Toast.LENGTH_SHORT).show()
                             }
                             else{
-                                Toast.makeText(this@MainActivity,it.exception?.localizedMessage,Toast.LENGTH_SHORT).show() 
+                                Toast.makeText(this@MainActivity,it.exception?.localizedMessage,Toast.LENGTH_SHORT).show()
                             }
                         }
             }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (Firebase.auth.currentUser!=null){
+            startActivity(Intent(this@MainActivity,HomeActivity::class.java))
+            finish()
         }
     }
 }
