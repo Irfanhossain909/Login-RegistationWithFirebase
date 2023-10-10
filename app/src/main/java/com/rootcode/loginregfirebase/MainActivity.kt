@@ -15,6 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.exchenge.setOnClickListener {
+            startActivity(Intent(this@MainActivity,Login::class.java))
+            finish()
+        }
+
 
         binding.register.setOnClickListener {
             if (binding.emailEtxt.text.toString()==""||binding.passEtxt.text.toString()==""){
